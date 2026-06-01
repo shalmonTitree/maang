@@ -1,0 +1,71 @@
+Time Limit: 0.5 sec
+Memory: 256 MB
+
+Description
+
+Given a number N, and N numbers, find the maximum number among these N numbers.
+
+Input Format
+
+First line contains a number N.
+
+Second line contains N numbers Xi where 1 ≤ i ≤ N.
+
+Output Format
+
+Print the maximum number.
+
+Constraints
+
+1 ≤ N ≤ 10^3
+
+0 ≤ Xi ≤ 10^9
+
+Sample Input 1
+
+5
+1 8 5 7 5
+
+Sample Output 1
+
+8
+
+Sample Input 2
+
+2
+2 2
+
+Sample Output 2
+
+2
+
+Note
+
+For the first sample, 8 is the maximum element among the given numbers.
+
+For the second sample, both the elements are 2, and it is the maximum.
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"   // optional, better to avoid redefining endl
+
+void solve() {
+    int n;
+    cin>>n;
+    vector<int>v(n);
+    for(int i = 0; i < n ; i++) cin>>v[i];
+    int ans = *max_element(v.begin(),v.end());
+    cout<<ans<<endl;
+
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    solve();
+
+    return 0;
+}
