@@ -1,0 +1,125 @@
+Description
+Given an array A of positive integers, determine the sum of the highest and second-highest recurring elements in the array. An element is considered "recurring" if it appears two or more times. When two or more elements have the same frequency, the highest element should be prioritized.
+
+Note:
+
+* If there are no recurring elements in A, output -1.
+* If there is only one recurring element, output that element.
+* If there are two or more recurring elements, output the sum of the two highest recurring elements as described.
+
+Input Format
+The first line contains an integer T, the number of test cases.
+
+For each test case:
+
+The first line contains an integer N, the number of elements in the array A.
+
+The second line contains N integers representing the array A.
+
+Output Format
+For each testcase, in a single line, output an integer representing the sum of the highest and second highest recurring element.
+
+Constraints
+1 ≤ T ≤ 10³
+1 ≤ N ≤ 10⁵
+1 ≤ arr[i] ≤ 10⁹
+
+Sum of N over all testcases does not exceed 10⁵.
+
+Sample Input 1
+2
+8
+4 2 4 5 2 3 1 2
+5
+1 2 3 4 5
+
+Sample Output 1
+6
+-1
+
+Note
+
+In the first test case:
+
+The highest recurring element is 2 (appearing 3 times).
+The second-highest recurring element is 4 (appearing 2 times).
+
+Other elements appear only once, so they are not considered recurring.
+
+The answer is 2 + 4 = 6.
+
+For the second test case, none of the element is recurring. Hence our answer is -1.
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+
+    int n;
+    cin >> n;
+
+    vector<int> v(n);
+
+    for(int i = 0; i < n; i++)
+    {
+        cin >> v[i];
+    }
+
+    unordered_map<int,int> mp;
+
+    for(auto x : v)
+    {
+        mp[x]++;
+    }
+
+    vector<pair<int,int>> p;
+    // {frequency, value}
+
+    for(auto it : mp)
+    {
+        if(it.second > 1)
+        {
+            p.push_back({it.second, it.first});
+        }
+    }
+
+    if(p.size() == 0)
+    {
+        cout << -1 << endl;
+        return;
+    }
+
+    sort(p.begin(), p.end(), [](auto a, auto b){
+
+        if(a.first != b.first)
+            return a.first > b.first;
+
+        return a.second > b.second;
+    });
+
+    if(p.size() == 1)
+    {
+        cout << p[0].second << endl;
+        return;
+    }
+
+    cout << p[0].second + p[1].second << endl;
+}
+
+int main() {
+
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        solve();
+    }
+
+    return 0;
+}
