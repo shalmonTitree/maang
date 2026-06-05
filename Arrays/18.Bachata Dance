@@ -1,0 +1,156 @@
+Bachata is a style of social dance from the Dominician Republic which is now danced all over the world. Dancers are paired as couples to perform the dance, and to look visually appealing, the pair is usually made of people of similar height.
+
+Alice runs a dance academy, and for her new Bachata batch, a lot of dancers have registered. She now has to pair them into couples and decides that a couple can differ in height by no more than 2 inches. Any person who can't fit into such a couple has to leave. Alice wants to give higher priority to the participants of smaller height to form a couple. If more than one choice is available to form a couple, then the priority is given to participants arriving earlier i.e. first come first serve' principle is applied.
+
+Write a program to help Alice form the pairs, given the number of participants n, and the name and height of each participant.
+
+Read the input from STDIN and print the output to STDOUT. Do not write arbitrary strings while reading the input or while printing, as these contribute to the standard output.
+
+Input Format
+
+The first line of input contains a single integer T, denoting the number of test cases. Then the test cases follow.
+
+Each test case:
+The first line contains a single integer N, denoting the number of participants, then N lines follow.
+
+Each line has a string and an integer, S and X, space-separated, denoting the name and height respectively.
+
+Output Format
+
+Output n/2 lines, each line containing two strings with the names of the couple. Note that the height of the first person should be less than the height of the second person and if they are equal the first person should have arrived earlier.
+
+Constraints
+
+1 ≤ T ≤ 10^5
+
+1 ≤ n ≤ 10^4
+
+20 ≤ Hi ≤ 200
+
+Sum of all n ≤ 10^6 over all test cases
+
+Sample Input 1
+
+1
+4
+Sam 60
+Dan 52
+Bob 54
+Art 61
+
+Sample Output 1
+
+Dan Bob
+Sam Art
+
+Sample Input 2
+
+1
+4
+Sam 50
+Dan 50
+Bob 50
+Art 50
+
+Sample Output 2
+
+Sam Dan
+Bob Art
+
+Sample Input 3
+
+1
+4
+Rock 52
+Sam 51
+Dan 62
+Art 61
+
+Sample Output 3
+
+Sam Rock
+Art Dan
+
+Note
+
+In the first example, Dan and Bob are paired as height is the first priority. Then Sam and Art are paired. The orders are chosen on the same priority first on height than on the time of arrival. (first come first serve)
+
+
+
+Time Complexity: O(nlogn)
+Space Complexity:  O(n)
+
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"   // optional, better to avoid redefining endl
+
+
+bool comp(pair<int,pair<string,int>> &a, pair<int,pair<string,int>> &b)
+{
+    if(a.second.second !=  b.second.second)
+    {
+        return a.second.second < b.second.second;
+    }
+
+    return a.first < b.first;
+
+}
+void solve() {
+    int n;
+    cin>>n;
+    vector<pair<int,pair<string,int>>>v;
+    for(int i = 0; i < n; i++)
+    {
+        string a;
+        int b;
+        cin>>a>>b;
+        v.push_back({i,{a,b}});
+    }
+
+    sort(v.begin(),v.end(),comp);
+
+    vector<pair<string,string>> ans;
+
+
+    int i = 0;
+    while(i < n - 1)
+    {
+        int h1 = v[i].second.second;
+        int h2 = v[i+1].second.second;
+
+        if(h2 - h1 <= 2)
+        {
+            ans.push_back({v[i].second.first, v[i+1].second.first});
+            i += 2;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    
+
+
+    for(auto it : ans)
+    {
+        cout<<it.first<<" "<<it.second<<endl;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
+}
+
+
+
