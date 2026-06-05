@@ -1,0 +1,146 @@
+//Bruteforce
+Time Complexity: O(n2logn)
+Space Complexity: O(n2)
+	​
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"   // optional, better to avoid redefining endl
+
+void solve() {
+    ll n,k;
+    cin>>n>>k;
+
+    vector<ll>v(n);
+    for(ll i = 0; i < n; i++)
+    {
+        cin>>v[i];
+    }
+
+    vector<pair<ll,ll>>ans;
+    for(ll i = 0; i < n; i++)
+    {
+        for(ll j = 0; j < n; j++)
+        {
+            if(v[i] + v[j] == k)
+            {
+                ans.push_back({i,j});
+            }
+        }
+    }
+    sort(ans.begin(),ans.end());
+    cout<<ans[0].first<<" "<<ans[0].second<<endl;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    solve();
+
+    return 0;
+}
+
+
+//better
+Time Complexity: O(nlogn)
+Space Complexity:  O(n)
+	
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"   // optional, better to avoid redefining endl
+
+void solve() {
+    ll n,k;
+    cin>>n>>k;
+
+    vector<ll>v(n);
+    for(ll i = 0; i < n; i++)
+    {
+        cin>>v[i];
+    }
+
+    vector<pair<ll,ll>>ans;
+    unordered_map<ll,ll>mp;
+
+    for(ll i = 0; i < n; i++)
+    {
+        ll target = k - v[i];
+        if(mp.find(target) != mp.end())
+        {
+            ans.push_back({mp[target],i});
+        }
+        
+        mp[v[i]] = i;
+        
+    }
+    sort(ans.begin(),ans.end());
+    cout<<ans[0].first<<" "<<ans[0].second<<endl;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    solve();
+
+    return 0;
+}
+
+
+
+//optimal
+Time Complexity:  O(n)
+
+average case
+Space Complexity: O(n)
+	​
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"   // optional, better to avoid redefining endl
+
+void solve() {
+    ll n,k;
+    cin>>n>>k;
+
+    vector<ll>v(n);
+    for(ll i = 0; i < n; i++)
+    {
+        cin>>v[i];
+    }
+
+    vector<pair<ll,ll>>ans;
+    unordered_map<ll,ll>mp;
+    pair<ll,ll>best = {LLONG_MAX,LLONG_MAX};
+    for(ll i = 0; i < n; i++)
+    {
+        ll target = k - v[i];
+       if (mp.find(target) != mp.end()) {
+
+            pair<ll,ll> cur = {mp[target], i};
+
+            if (cur < best) {
+                best = cur;
+            }
+        }
+
+        
+            mp[v[i]] = i;
+    }
+
+    cout<<best.first<<" "<<best.second<<endl;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    solve();
+
+    return 0;
+}
+
+
