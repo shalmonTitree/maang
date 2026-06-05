@@ -1,0 +1,139 @@
+//alogrithm
+1. Convert the number into a string.
+2. Traverse from right to left and find the first index `idx` such that `s[idx] < s[idx+1]`.
+3. If no such index exists, print `-1` because no greater permutation is possible.
+4. Traverse again from the right and find the first digit greater than `s[idx]`.
+5. Swap this digit with `s[idx]`.
+6. Reverse the substring from `idx+1` to the end to get the smallest greater number.
+7. Convert the string back to a number.
+8. If the number exceeds `2147483647`, print `-1`; otherwise print the number.
+
+
+Overall: O(n)
+
+Space:O(1)
+
+Description
+
+Sagar likes to solve tricky problems just like you. He was recently trying to solve a problem, could not solve it so he needs your help. Sagar has a positive integer and he wants to find the smallest integer which has exactly the same digits existing in the integer N and is greater in value than N. If there is no valid answer, print -1.
+
+Note that the answer should fit in 32 bit integer, if there is a valid answer but does not fit in 32 bit integer, then print -1.
+
+Input Format
+
+The first line contains an integer T, the number of test cases.
+
+Each of the next T lines contains an integer N.
+
+Output Format
+
+For each test case, print the answer in a single line. If there is no valid answer or the answer does not fit in a 32-bit integer, print -1.
+
+Constraints
+
+1 ≤ T ≤ 10^5
+
+1 ≤ N ≤ 2^31 − 1
+
+Sample Input 1
+
+1
+112
+
+Sample Output 1
+
+121
+
+Sample Input 2
+
+1
+987654321
+
+Sample Output 2
+
+-1
+
+Sample Input 3
+
+1
+89
+
+Sample Output 3
+
+98
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"   // optional, better to avoid redefining endl
+
+void solve() {
+    string s;
+    cin>>s;
+    bool flag = false;
+    int n = s.size();
+    for(int i = 0; i < n - 1; i++)
+    {
+        if(s[i] < s[i+1])
+        {
+            flag = true;
+            break;
+        }
+    }
+
+    if(flag)
+    {
+        int idx = -1;
+        for(int i = n - 1; i >0; i--)
+        {
+            if(s[i] > s[i-1])
+            {
+                idx = i - 1;
+                break;
+            }
+        }
+        int maxi = INT_MAX;
+        int maxiidx = -1;
+        for(int i = n - 1; i > idx; i--)
+        {
+            if(s[i] > s[idx])
+            {
+                maxiidx = i;
+                break;
+            }
+        }
+        swap(s[idx],s[maxiidx]);
+
+        reverse(s.begin()+idx+1,s.end());
+        long long num = stoll(s);
+
+if(num > INT_MAX)
+{
+    cout << -1 << endl;
+}
+else
+{
+    cout << s << endl;
+}
+    }
+    else
+    {
+        cout<<"-1"<<endl;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
+}
