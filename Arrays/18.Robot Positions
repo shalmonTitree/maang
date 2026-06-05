@@ -1,0 +1,106 @@
+Description
+
+N robots are standing in a line consisting of N squares numbered from 1 to N. Initially, the ith robot is standing on the ith square. Each square has a letter 'L' or 'R' written on it. After 1 second, each robot moves one unit in the left direction if its square has the letter 'L' and moves one unit in the right direction if its square has the letter 'R'. It is guaranteed that the letter on the leftmost square is always 'R' and on the rightmost square is 'L'.
+
+You are given a string S of length N denoting the letter written on each square. You must determine how many robots would stand on each square after 10^5 seconds. Output a string of length N, where the ith character represents the number of robots on the ith square after 10^5 seconds.
+
+Input Format
+
+The first line contains a single integer T, the number of test cases. For each test case:
+A single line containing the string S of length N.
+
+Output Format
+
+Output a single line for each test case: the string of length N representing the number of robots on each square after 10^5 seconds.
+
+Constraints
+
+1 ≤ T ≤ 10^5
+
+1 ≤ |S| ≤ 10^5
+
+The sum of the lengths of S over all test cases does not exceed 10^6
+
+Sample Input 1
+
+1
+RLL
+
+Sample Output 1
+
+210
+
+Note
+
+After 10^5 seconds, the first square has 2 robots, the second square has 1 robot, and the third square has 0 robots.
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"   // optional, better to avoid redefining endl
+
+void solve() {
+    string s;
+    cin>>s;
+    int j = 0;
+    int n = s.size();
+    vector<int>ans(n,0);
+    for(int i= 0; i < n - 1; i++)
+    {
+        if(s[i] == 'R' && s[i+1] == 'L')
+        {
+            j = i;
+
+            while(j >= 0 && s[j] == 'R')
+            {
+                int distance = i - j;
+                if(distance % 2 == 0)
+                {
+                    ans[i]++;
+                }
+                else
+                {
+                    ans[i+1]++;
+                }
+                j--;
+            }
+
+            j = i + 1;
+            while(j < n && s[j] == 'L')
+            {
+                int distance = j - (i+1);
+                if(distance % 2 == 0)
+                {
+                    ans[i+1]++;
+                }
+                else
+                {
+                    ans[i]++;
+                }
+                j++;
+            }
+
+        }
+    }
+
+    for(int i = 0; i < n; i++)
+    {
+        cout<<ans[i]<<"";
+    }
+    cout<<endl;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
+}
