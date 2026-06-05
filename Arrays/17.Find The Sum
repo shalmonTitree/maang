@@ -1,3 +1,44 @@
+Description
+
+Given a list of unique integers and another integer K, find a pair of indices from the list whose corresponding elements has sum equals K. If there is more than one pair with sum equals K, then print the smallest pair.
+
+When comparing pairs, first check the first element, and then check the second if the first one is equal for both the pairs.
+
+An example of a sorted pair sequence is given below:
+[ {0, 0} < {3, 8} < {3, 13} < {5, 0} < {5, 8} < {6, 6} < {8, 9} < {8, 18} < {12, 5} ]
+
+Note that, it is assured that there will always be at least one pair whose sum will match the given K.
+Try to Implement the most optimal and efficient method.
+
+Input Format
+
+The first line of the input contains two integers N and K.
+The next line contains N distinct integers representing the array.
+
+Output Format
+
+Print the requested pair indices (0-indexed) in ascending order in a space-separated format.
+
+Constraints
+
+2 ≤ N ≤ 10^5
+-10^9 ≤ Ai ≤ 10^9
+
+Sample Input 1
+
+10 18
+2 8 -5 14 -10 23 4 16 -1 10
+
+Sample Output 1
+
+0 7
+
+Note
+
+We can see that ( arr[0] + arr[7] ) = ( 2 + 16 ) = 18 (given K).
+
+
+
 //Bruteforce
 Time Complexity: O(n2logn)
 Space Complexity: O(n2)
