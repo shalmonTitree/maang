@@ -1,0 +1,119 @@
+Time Limit: 1 sec
+Memory: 256 MB
+
+Description
+Given a number Q and a string S. If Q is equal to 1, then print S after encrypting it; otherwise, print S after decrypting it.
+
+Key = "PgEfTYaWGHjDAmxQqFLRpCJBownyUKZXkbvzIdshurMilNSVOtec#@_!=.+-*/".
+
+Original = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".
+
+Note:
+
+In Encryption: For each letter x in Original, replace it by the equivalent letter y from Key.
+
+In Decryption: For each letter y in Key, replace it by the equivalent letter x from Original.
+
+Key and Original have the same length.
+
+Input Format
+The first line contains a number Q.
+The second line contains a string S.
+
+Output Format
+Print the answer required above.
+
+Constraints
+1 ≤ Q ≤ 2
+1 ≤ |S| ≤ 10^5, where |S| is the length of the string, and it consists of lowercase and uppercase English letters.
+
+Sample Input 1
+1
+Egypt
+
+Sample Output 1
+ZaoQR
+
+Sample Input 2
+2
+ZaoQR
+
+Sample Output 2
+Egypt
+
+Sample Input 3
+2
+#@_!=.+-*/
+
+Sample Output 3
+0123456789
+
+Note
+In the first sample, since Q = 1, we encrypt the string "Egypt". Each character is replaced by its corresponding character in the Key string based on its position in the Original string.
+
+In the second sample, since Q = 2, we decrypt the string "#@_!=.+-*/". Each character is replaced by its corresponding character in the Original string based on its position in the Key string.
+
+In the third sample, since Q = 2, we decrypt the string "ZaoQR" back to "Egypt", reversing the encryption process from the first sample.
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"   // optional, better to avoid redefining endl
+
+void solve() {
+    
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+
+
+    string key = "PgEfTYaWGHjDAmxQqFLRpCJBownyUKZXkbvzIdshurMilNSVOtec#@_!=.+-*/";
+    string org = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    
+    
+
+    string ans = "";
+    if(n == 1)
+    {
+        for(int i = 0; i < s.size(); i++)
+        {
+            for(int j = 0; j < org.size(); j++)
+            {
+                if(org[j] == s[i])
+                {
+                    ans += key[j];
+                    break;
+                }
+            }
+        }
+        cout<<ans<<endl;
+    }
+    else if(n == 2)
+    {
+        for(int i = 0; i < s.size(); i++)
+        {
+            for(int j = 0; j < key.size(); j++)
+            {
+                if(key[j] == s[i])
+                {
+                    ans += org[j];
+                    break;
+                }
+            }
+        }
+        cout<<ans<<endl;
+
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    solve();
+
+    return 0;
+}
