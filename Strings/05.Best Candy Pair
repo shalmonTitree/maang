@@ -1,0 +1,90 @@
+Time Limit: 2 sec
+Memory: 256 MB
+
+Description
+You have a box of candies of different brands and different sizes represented by the string S. There are two sizes of candies produced by each brand i.e. small and large. Uppercase alphabets are used to represent large candies, while lowercase alphabets are used to represent small candies. If one brand is higher in alphabetical order than another, for example, C > B, then that brand is better. Therefore Brand C is better than brand B. Find the best candy pair in the box, i.e. the best brand that has both small and large candies in the box, and retrn 0 if it isn't there.
+
+You are given an integer N where N represents the total number of candies in the box. You are given an array of candies S representing the brand and type of candies in the box, each candy is represented by an English alphabet where lowercase alphabets denote the small candies and uppercase alphabets denote the large candies.
+
+Input Format
+The first line contains an integer T, denoting the number of test cases.
+For each test case:
+
+The first line contains an integer N, denoting the total number of candies in the box.
+The second line contains a string S of length N representing the brands and types of candies in the box.
+
+Output Format
+For each test case, output the uppercase letter of the best brand that has both small and large candies in the box. If there is no such brand, output 0.
+
+Constraints
+1 ≤ T ≤ 10^5
+1 ≤ N ≤ 10^6
+
+String S contains only English alphabets where lowercase alphabets denote small candies and uppercase alphabets denote large candies.
+
+It is guaranteed that the sum of N over all test cases does not exceed 10^6.
+
+Sample Input 1
+2
+6
+bBdCDc
+3
+ZzT
+
+Sample Output 1
+D
+Z
+
+Note
+In the first test case, there are three candy pairs: (b,B), (c,C), and (d,D). Among these, brand D is better than brands C and B, so the answer is D.
+
+In the second test case, the only brand that has both small and large candies is Z, so the answer is Z.
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"   // optional, better to avoid redefining endl
+
+void solve() {
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    vector<int>freqUpper(26,0);
+    vector<int>freqLowwer(26,0);
+    for(int i = 0; i < n; i++)
+    {
+        if(s[i] >= 'a' && s[i] <= 'z')
+        {
+            freqLowwer[s[i] - 'a']++;
+        }
+        else
+        {
+            freqUpper[s[i] - 'A']++;
+        }
+    }
+    for(int i = 25; i >= 0; i--)
+    {
+        if(freqLowwer[i] && freqUpper[i])
+        {
+            cout<<char('A' + i)<<endl;
+            return;
+        }
+    }
+    cout<<"0"<<endl;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
+}
