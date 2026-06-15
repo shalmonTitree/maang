@@ -1,0 +1,89 @@
+Time Limit: 1 sec
+Memory: 256 MB
+
+Description
+You are given a string, and you have to return the number of substrings that are good substrings.
+
+Note: A good substring is defined as a substring where the frequency of each character in the substring is the same.
+
+Input Format
+First line of input contains T - number of test cases.
+Each test case consists of a single line:
+A string s consisting of lowercase English letters only.
+
+Output Format
+For each test case, print a single integer representing the number of good substrings.
+
+Constraints
+1 ≤ T ≤ 10^3
+1 ≤ |s| ≤ 10^3
+
+It's guaranteed that sum of |s| across all test cases ≤ 10^3.
+
+Sample Input 1
+2
+abcabc
+aabb
+
+Sample Output 1
+16
+8
+
+Note
+For the first input:
+
+The good substrings are: "a", "b", "c", "a", "b", "c", "ab", "bc", "ca", "ab", "bc", "abc", "bca", "cab", "abc" and "abcabc".
+
+For the second input:
+
+The good substrings are: "a", "a", "b", "b", "ab", "aa", "bb", "aabb".
+
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define endl "\n"   // optional, better to avoid redefining endl
+
+void solve() {
+    string s;
+    cin>>s;
+    int cnt = 0;
+
+    int n = s.size();
+    for(int i = 0; i < n; i++)
+    {
+        unordered_map<char,int>mp;
+        for(int j = i; j < n; j++)
+        {
+            mp[s[j]]++;
+            int val = mp[s[j]];
+            bool f = true;
+            for(auto it : mp)
+            {
+                if(it.second != val)
+                {
+                    f = false; 
+                    break;
+                }
+            }
+            if(f)
+            {
+                cnt++;
+            }
+        }
+    }
+    cout<<cnt<<endl;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
+}
